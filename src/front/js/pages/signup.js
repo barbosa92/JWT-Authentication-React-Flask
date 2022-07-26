@@ -11,7 +11,6 @@ export const Signup = () => {
   const [datos, setDatos] = useState({
     email: "",
     username: "",
-    password: "",
   });
 
   const handleInputChange = (e) => {
@@ -21,13 +20,11 @@ export const Signup = () => {
     });
   };
   const enviarDatos = () => {
-    console.log("Entra en enviar");
+    console.log("Entra en enviarDatos");
     if (password1 === password2) {
-      // setDatos({ ...datos, [password]: password1 });
-      actions.signup(datos.email, datos.username, password1);
-      console.log("Entra en flux");
+      actions.signup(datos.username, datos.email, password1);
     } else {
-      alert("Las constraseñas deben coincidir");
+      return alert("Las contraseñas deben coincidir");
     }
   };
   return (

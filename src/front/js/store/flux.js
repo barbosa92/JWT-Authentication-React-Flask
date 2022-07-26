@@ -15,6 +15,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         },
       ],
       permiso: false,
+      token: "",
     },
     actions: {
       // Use getActions to call a function within a fuction
@@ -48,7 +49,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         //reset the global store
         setStore({ demo: demo });
       },
-      signup: (email, username, password) => {
+      signup: (username, email, password) => {
+        console.log("Entra en flux");
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -68,6 +70,36 @@ const getState = ({ getStore, getActions, setStore }) => {
         fetch(process.env.BACKEND_URL + "/api/signup", requestOptions)
           .then((response) => response.text())
           .then((result) => console.log(result))
+          .catch((error) => console.log("error", error));
+      },
+
+      login: (email, password) => {
+        const store = getStore();
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+          email: email,
+          password: password,
+        });
+
+        var requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow",
+        };
+
+        fetch(process.env.BACKEND_URL + "/api/login", requestOptions)
+          .then((response) => response.json())
+          .then((result) => {
+            console.log(result);
+            setStore({ token: result.token });
+            sessionStorage.setItem("token", result.token);
+          })
+          .then(() => {
+            console.log(store.token);
+          })
           .catch((error) => console.log("error", error));
       },
     },

@@ -6,6 +6,7 @@ from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, JWTManager
 import datetime
+import json 
 
 api = Blueprint('api', __name__)
 
@@ -57,7 +58,7 @@ def log_user():
             }
             )
         else :
-            return jsonify({"La contraseña no es correcta"}), 400
+            return jsonify({"error": "La contraseña no es correcta"})
     else :
         return jsonify({"error": "El usuario no existe"}), 400
 
