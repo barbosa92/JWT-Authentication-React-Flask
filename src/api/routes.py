@@ -49,7 +49,7 @@ def log_user():
 
     if user:
         if user.password == request_body['password']:
-            tiempo = datetime.timedelta(minutes = 60)
+            tiempo = datetime.timedelta(minutes = 2)
             token = create_access_token (identity = request_body['email'], expires_delta = tiempo)
             return jsonify ({
                 "duracion": tiempo.total_seconds(),

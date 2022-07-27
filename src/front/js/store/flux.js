@@ -102,6 +102,29 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log("error", error));
       },
+
+      private: () => {
+        var myHeaders = new Headers();
+        myHeaders.append(
+          "Authorization",
+          `Bearer ${sessionStorage.getItem("token")}`
+        );
+
+        var requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow",
+        };
+
+        fetch(process.env.BACKEND_URL + "/api/private", requestOptions)
+          .then((response) => response.json())
+          .then((result) => {
+            console.log(result);
+            setStore({ permiso: result.permiso });
+            setStore({ email: result.email });
+          })
+          .catch((error) => console.log("error", error));
+      },
     },
   };
 };

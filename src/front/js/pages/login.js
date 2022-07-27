@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Context } from "../store/appContext";
 
 export const Login = () => {
-  // const history = useHistory();
+  const navigate = useNavigate();
   const [error, guardarError] = useState(false);
   const { store, actions } = useContext(Context);
   const [datos, setDatos] = useState({
@@ -33,6 +33,7 @@ export const Login = () => {
         name="login"
         onSubmit={(e) => {
           e.preventDefault();
+          navigate("/private");
         }}
       >
         <div className="container">
