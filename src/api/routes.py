@@ -66,4 +66,4 @@ def log_user():
 @jwt_required()
 def private_view():
     identidad = get_jwt_identity()
-    return jsonify({"mensaje": "Tienes permiso para entrar", "permiso": True, "email": "identidad"})
+    return jsonify({"mensaje": "Tienes permiso para entrar", "permiso": True, "email":identidad})
